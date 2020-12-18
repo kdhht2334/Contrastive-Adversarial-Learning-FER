@@ -1,3 +1,3 @@
 # Real-time Demo for FER
 
-Real-time emotion recognition application based on Python's parallel processing library `Asyncio`.
+Real-time facial emotion recognition application based on Python's parallel processing library `Asyncio`.
