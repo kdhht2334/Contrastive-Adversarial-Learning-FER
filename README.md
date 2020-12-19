@@ -47,7 +47,9 @@ pip install -r requirements.txt
 
 ## Training and evaluation
 
-1. Train CAF-FER.
+1. Go to `/src`.
+
+2. Train CAF-FER.
 
 ```
 python main.py --gpus 3 --train 1 --freq 5
@@ -61,6 +63,15 @@ python main.py --gpus 3 --train 1 --freq 5
 ```
 python main.py --gpus 3 --train 0
 ```
+
+
+## Real-time demo
+
+1. Go to `/Real_demo`.
+
+2. Run `main.py`.
+
+  - Facial detection and AV domain FER functions are equipped.
 
 
 
