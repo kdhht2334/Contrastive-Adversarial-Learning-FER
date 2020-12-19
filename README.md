@@ -4,7 +4,12 @@ This repository provides the official PyTorch implementation of the following pa
 > **Contrastive Adversarial Learning for Person Independent Facial Emotion Recognition (AAAI 2021)**<br>
 > Details will be updated soon...
 
+
+
+<p align="center">
+Real-time demo with pre-trained weights
 <img src="https://github.com/kdhht2334/Contrastive-Adversarial-Learning-FER/blob/main/Real_demo/demo_FER.gif" height="320"/>
+</p>
 
 ## Requirements
 
