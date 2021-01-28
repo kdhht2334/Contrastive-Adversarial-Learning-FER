@@ -378,7 +378,7 @@ if __name__ == "__main__":
     validation_path = '/path/to/validation.csv'
 
     face_dataset = FaceDataset(csv_file=training_path,  # all_path
-                               root_dir='/media/CVIP/aff_wild/videos/train_ext1_crop_face/',
+                               root_dir='/path/to/train_images/',
                                transform=transforms.Compose([
                                    transforms.Resize(256), transforms.RandomCrop(size=224),  # 128, 120
                                    transforms.ColorJitter(),
@@ -388,7 +388,7 @@ if __name__ == "__main__":
                                ]), inFolder=None)
 
     face_dataset_val = FaceDataset(csv_file=validation_path,
-                                   root_dir='/media/CVIP/aff_wild/videos/train_ext1_crop_face/',
+                                   root_dir='/path/to/val_images/',
                                    transform=transforms.Compose([
                                        transforms.Resize(256), transforms.CenterCrop(size=224),
                                        transforms.ToTensor(),
