@@ -7,7 +7,7 @@ This repository provides the official PyTorch implementation of the following pa
 
 - Real-time demo with pre-trained weights
 <p align="center">
-<img src="https://github.com/kdhht2334/Contrastive-Adversarial-Learning-FER/blob/main/Real_demo/demo_FER_cropped.gif" height="320"/>
+<img src="https://github.com/kdhht2334/Contrastive-Adversarial-Learning-FER/blob/main/demonstration/demo_FER_cropped.gif" height="320"/>
 </p>
 
 
