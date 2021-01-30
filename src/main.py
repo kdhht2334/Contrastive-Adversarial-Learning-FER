@@ -294,8 +294,8 @@ def model_evaluation(model, metric, num_epochs):
         mean_l_v = np.mean(labels_th[:,0]); mean_p_v = np.mean(scores_th[:,0])
         mean_l_a = np.mean(labels_th[:,1]); mean_p_a = np.mean(scores_th[:,1])
 
-        PCC_v = np.cov(labels_th[:,0], np.transpose(scores_th[:,0])) / (std_l_v * std_p_v)
-        PCC_a = np.cov(labels_th[:,1], np.transpose(scores_th[:,1])) / (std_l_a * std_p_a)
+        PCC_v = np.cov(labels_th[:,0], scores_th[:,0]) / (std_l_v * std_p_v)
+        PCC_a = np.cov(labels_th[:,1], scores_th[:,1]) / (std_l_a * std_p_a)
         CCC_v = (2.0 * std_l_v * std_p_v * PCC_v) / ( np.power(std_l_v,2) + np.power(std_p_v,2) + np.power(mean_l_v-mean_p_v,2) )
         CCC_a = (2.0 * std_l_a * std_p_a * PCC_a) / ( np.power(std_l_a,2) + np.power(std_p_a,2) + np.power(mean_l_a-mean_p_a,2) )
 
