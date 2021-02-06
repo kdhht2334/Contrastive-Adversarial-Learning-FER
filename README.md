@@ -28,13 +28,10 @@ pip install -r requirements.txt
 
 -------
 
-## Contents
+## News
 
-1. Training and evaluation for FER
-
-2. Real-time demo.
-
-3. Ablation study for distance metric learning (DML)
+[21.02.06] UPLOAD full training and evaluation files.
+[21.01.02] OPEN official pytorch version of CAL-FER
 
 -------
 
@@ -49,7 +46,7 @@ pip install -r requirements.txt
  
  (For more details visit [website](https://ibug.doc.ic.ac.uk/))
 
-2. Follow preprocessing rules for each dataset.
+2. Follow preprocessing rules for each dataset by referring pytorch official [custom dataset tutorial](https://pytorch.org/tutorials/beginner/data_loading_tutorial.html).
 
 -------
 
