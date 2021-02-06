@@ -7,3 +7,4 @@ sklearn==0.21.3
 pillow==6.2.0
 fabulous==0.3.0
 wandb==0.10.4
+facenet-pytorch==2.5.1

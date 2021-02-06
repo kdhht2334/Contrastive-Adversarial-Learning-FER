@@ -13,11 +13,12 @@ This repository provides the official PyTorch implementation of the following pa
 
 ## Requirements
 
-- Python3
-- PyTorch (> 1.0)
+- Python (>=3.7)
+- PyTorch (>=1.5.0)
 - NumPy
-- Fabulous
-- wandb
+- [Wandb](https://wandb.ai/)
+- [Fabulous](https://github.com/jart/fabulous) (terminal color toolkit)
+- [Facenet-pytorch](https://github.com/timesler/facenet-pytorch) (face detection)
 
 To install all dependencies, do this.
 
@@ -25,6 +26,7 @@ To install all dependencies, do this.
 pip install -r requirements.txt
 ```
 
+-------
 
 ## Contents
 
@@ -34,7 +36,7 @@ pip install -r requirements.txt
 
 3. Ablation study for distance metric learning (DML)
 
-
+-------
 
 ## Datasets
 
@@ -42,34 +44,41 @@ pip install -r requirements.txt
 
   - [AffectNet](http://mohammadmahoor.com/affectnet/)
  
-  - [Aff-Wild](https://ibug.doc.ic.ac.uk/resources/first-affect-wild-challenge/) & [Aff-Wild2](https://ibug.doc.ic.ac.uk/resources/aff-wild2/)
- 
+  - [Aff-Wild](https://ibug.doc.ic.ac.uk/resources/first-affect-wild-challenge/) 
   - [AFEW-VA](https://ibug.doc.ic.ac.uk/resources/afew-va-database/)
  
  (For more details visit [website](https://ibug.doc.ic.ac.uk/))
 
 2. Follow preprocessing rules for each dataset.
 
+-------
 
 ## Training and evaluation
 
-1. Go to `/src`.
+1.Go to `/src`.
 
-2. Train CAF-FER.
+2.Train CAF-FER.
 
+```python
+python main.py --gpus 0 --train 1 --freq 5 --csv_path <csv_path> --data_path <data_path> --save_path <save_path> --load_path <load_path>
 ```
-python main.py --gpus 3 --train 1 --freq 5
-```
-  - You can only one GPU for network training.
-  - Train 1 (training) and 0 (evaluation)
-  - Freq 5 means the checkpoint storage interval.
-  
-2. Evaluate CAF-FER.
+ 
+3.Evaluate CAF-FER.
 
-```
-python main.py --gpus 3 --train 0
+```python
+python main.py --gpus 0 --train 0 --csv_path <csv_path> --data_path <data_path> --load_path <load_path>
 ```
 
+- Arguments
+ - __gpus__: GPU number (in case of single GPU, set to 0)
+ - __train__: 1 (training phase), 0 (evaluation phase)
+ - __freq__: Parameter saving frequency
+ - __csv_path__: Path to load name and label script.
+ - __data_path__: Path to load facial dataset.
+ - __save_path__: Path to save weights.
+ - __load_path__: Path to load pre-trained weights.
+
+-------
 
 ## Real-time demo
 
@@ -78,6 +87,7 @@ python main.py --gpus 3 --train 0
 2. Run `main.py`.
 
   - Facial detection and AV domain FER functions are equipped.
+  - Before that, you have to train and save `Encoder.t7` and `FC_layer.t7`.
 
 
 
