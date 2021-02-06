@@ -16,6 +16,10 @@ app = argparse.ArgumentParser()
 app.add_argument("-g", "--gpus", type=int, default=3, help='Which GPU do you want for training.')
 app.add_argument("-t", "--train", type=int, default=1, help='Training vs. evaluation phase.')
 app.add_argument("-f", "--freq", type=int, default=1, help='Saving frequency.')
+app.add_argument("-c", "--csv_path", type=str, default='/', help='Path to load name and label script.')
+app.add_argument("-d", "--data_path", type=str, default='/', help='Path to load facial dataset.')
+app.add_argument("-s", "--save_path", type=str, default='/', help='Path to save weights.')
+app.add_argument("-l", "--load_path", type=str, default='/', help='Path to load pre-trained weights.')
 args = vars(app.parse_args())
 
 gpus = args["gpus"]
@@ -238,17 +242,17 @@ def model_training(model, metric, optimizer, scheduler, num_epochs):
             del hard_idx, weak_idx
             
         if epoch % args["freq"] == 0 and epoch > 0:
-            torch.save(encoder.state_dict(), '/path/to/enc_weights_{}.t7'.format(epoch))
-            torch.save(regressor.state_dict(), '/path/to/reg_weights_{}.t7'.format(epoch))
-            torch.save(disc.state_dict(), '/path/to/dec_weights_{}.t7'.format(epoch))
+            torch.save(encoder.state_dict(), args["save_path"]+'/enc_weights_{}.t7'.format(epoch))
+            torch.save(regressor.state_dict(), args["save_path"]+'/reg_weights_{}.t7'.format(epoch))
+            torch.save(disc.state_dict(), args["save_path"]+'/dec_weights_{}.t7'.format(epoch))
 
 
 def model_evaluation(model, metric, num_epochs):
     
     encoder = model[0]; regressor = model[1]
     RMSE = metric[0]
-    encoder.load_state_dict(torch.load('/path/to/enc_weights.t7'), strict=False)
-    regressor.load_state_dict(torch.load('/path/to/reg_weights.t7'), strict=False)
+    encoder.load_state_dict(torch.load(args["load_path"]+'/enc_weights_1.t7'), strict=False)
+    regressor.load_state_dict(torch.load(args["load_path"]+'/enc_weights_1.t7'), strict=False)
 
     encoder.train(False)
     regressor.train(False)
@@ -374,11 +378,11 @@ if __name__ == "__main__":
     #------------
     # Data loader
     #-----------
-    training_path = '/path/to/training.csv'
-    validation_path = '/path/to/validation.csv'
+    training_path = args["csv_path"]+'/training.csv'
+    validation_path = args["csv_path"]+'/validation.csv'
 
     face_dataset = FaceDataset(csv_file=training_path,  # all_path
-                               root_dir='/path/to/train_images/',
+                               root_dir=args["data_path"]+'train_images/',
                                transform=transforms.Compose([
                                    transforms.Resize(256), transforms.RandomCrop(size=224),  # 128, 120
                                    transforms.ColorJitter(),
@@ -388,7 +392,7 @@ if __name__ == "__main__":
                                ]), inFolder=None)
 
     face_dataset_val = FaceDataset(csv_file=validation_path,
-                                   root_dir='/path/to/val_images/',
+                                   root_dir=args["data_path"]+'val_images/',
                                    transform=transforms.Compose([
                                        transforms.Resize(256), transforms.CenterCrop(size=224),
                                        transforms.ToTensor(),
