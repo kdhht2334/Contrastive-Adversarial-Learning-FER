@@ -90,7 +90,7 @@ python main.py --gpus 0 --train 0 --csv_path <csv_path> --data_path <data_path> 
 ---
 ### BibTeX
 
-Please cite the paper if you choose to use HED database for your research.
+Please cite our paper if you find our work useful for your research:
 
 ```
 @article{Kim_Song_2021, 
