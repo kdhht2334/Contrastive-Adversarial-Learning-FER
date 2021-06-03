@@ -93,15 +93,14 @@ python main.py --gpus 0 --train 0 --csv_path <csv_path> --data_path <data_path> 
 Please cite our paper if you find our work useful for your research:
 
 ```
-@article{Kim_Song_2021, 
-title={Contrastive Adversarial Learning for Person Independent Facial Emotion Recognition}, 
-volume={35}, 
-number={7}, 
-journal={Proceedings of the AAAI Conference on Artificial Intelligence}, 
-author={Kim, Daeha and Song, Byung Cheol}, 
-year={2021}, 
-month={May}, 
-pages={5948-5956}
+@inproceedings{kim2021contrastive,
+title={Contrastive Adversarial Learning for Person Independent Facial Emotion Recognition},
+author={Kim, Dae Ha and Song, Byung Cheol},
+booktitle={Proceedings of the AAAI Conference on Artificial Intelligence},
+volume={35},
+number={7},
+pages={5948--5956},
+year={2021}
 }
 ```
 
