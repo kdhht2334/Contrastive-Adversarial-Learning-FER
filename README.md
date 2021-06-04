@@ -30,7 +30,7 @@ pip install -r requirements.txt
 
 ## News
 
-__[2021.06.04]: Add weights of encoder and FC layer.__
+__[21.06.04]: Add weights of encoder and FC layer.__
 
 __[21.02.06]: UPLOAD full training and evaluation files.__
 
