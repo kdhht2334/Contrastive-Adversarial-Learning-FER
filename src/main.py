@@ -64,7 +64,7 @@ def model_training(model, metric, optimizer, scheduler, num_epochs):
     reg_opt = optimizer[1]
     disc_opt = optimizer[2]
 
-    RMSE = metric[0]
+    MSE = metric[0]
     rho = 1e-6
 
     for epoch in range(num_epochs):
@@ -121,8 +121,8 @@ def model_training(model, metric, optimizer, scheduler, num_epochs):
             scores = regressor(z)
 
             pcc_loss, ccc_loss, ccc_v, ccc_a = pcc_ccc_loss(correct_labels, scores)
-            RMSE_valence = RMSE(scores[:,0], correct_labels[:,0])
-            RMSE_arousal = RMSE(scores[:,1], correct_labels[:,1])
+            RMSE_valence = MSE(scores[:,0], correct_labels[:,0])**0.5
+            RMSE_arousal = MSE(scores[:,1], correct_labels[:,1])**0.5
             loss = (RMSE_valence + RMSE_arousal) + 0.5 * pcc_loss + 0.5 * ccc_loss
             
             enc_opt.zero_grad(); reg_opt.zero_grad()
@@ -250,7 +250,7 @@ def model_training(model, metric, optimizer, scheduler, num_epochs):
 def model_evaluation(model, metric, num_epochs):
     
     encoder = model[0]; regressor = model[1]
-    RMSE = metric[0]
+    MSE = metric[0]
     encoder.load_state_dict(torch.load(args["load_path"]+'/enc_weights_1.t7'), strict=False)
     regressor.load_state_dict(torch.load(args["load_path"]+'/enc_weights_1.t7'), strict=False)
 
@@ -283,8 +283,8 @@ def model_evaluation(model, metric, num_epochs):
                 scores_list.append(scores.detach().cpu().numpy())
                 labels_list.append(correct_labels.detach().cpu().numpy())
     
-                RMSE_valence = RMSE(scores[:,0], correct_labels[:,0])
-                RMSE_arousal = RMSE(scores[:,1], correct_labels[:,1])
+                RMSE_valence = MSE(scores[:,0], correct_labels[:,0])**0.5
+                RMSE_arousal = MSE(scores[:,1], correct_labels[:,1])**0.5
                 print('=====> [{}] RMSE_valence {} | arousal {} '.format(epoch, RMSE_valence, RMSE_arousal))
                 
                 total_rmse_v += RMSE_valence.item(); total_rmse_a += RMSE_arousal.item()
@@ -415,7 +415,7 @@ if __name__ == "__main__":
     regressor = _regressor().cuda()
     disc2     = _disc2().cuda()
     
-    RMSE = nn.MSELoss()
+    MSE = nn.MSELoss()
     enc_opt   = optim.Adam(encoder2.parameters(), lr  = 1e-4, betas = (0.5, 0.9))
     reg_opt   = optim.Adam(regressor.parameters(), lr = 1e-4, betas = (0.5, 0.9))
     disc_opt  = optim.Adam(disc2.parameters(), lr     = 1e-4, betas = (0.5, 0.9))
@@ -430,12 +430,12 @@ if __name__ == "__main__":
     if args['train']:
         print(fg256("cyan", "Training phase"))
         model_training([encoder2             , regressor            , disc2]                 ,
-                       [RMSE]                ,
+                       [MSE]                 ,
                        [enc_opt              , reg_opt              , disc_opt]              ,
                        [enc_exp_lr_scheduler , reg_exp_lr_scheduler , disc_exp_lr_scheduler] ,
                        num_epochs=131)
     else:
         print(fg256("yellow", "Evaluation phase"))
         model_evaluation([encoder2             , regressor            , disc2]                 ,
-                         [RMSE]                ,
+                         [MSE]                 ,
                          num_epochs=1)
